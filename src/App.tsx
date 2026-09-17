@@ -402,16 +402,47 @@ function RSVPSection() {
     }));
     setErrors((current) => ({ ...current, events: '' }));
   };
-  const submit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const next: Record<string, string> = {};
-    if (!form.name.trim()) next.name = 'Please share your full name.';
-    if (!form.attendance) next.attendance = 'Please choose an option.';
-    if (!form.events.length) next.events = 'Please select at least one celebration.';
-    if (!form.guests || Number(form.guests) < 1) next.guests = 'Please enter a guest count.';
-    setErrors(next);
-    if (!Object.keys(next).length) setSubmitted(true);
-  };
+  const submit = async (event: FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
+
+  const next: Record<string, string> = {};
+
+  if (!form.name.trim()) next.name = 'Please share your full name.';
+  if (!form.attendance) next.attendance = 'Please choose an option.';
+  if (!form.events.length) next.events = 'Please select at least one celebration.';
+  if (!form.guests || Number(form.guests) < 1) {
+    next.guests = 'Please enter a guest count.';
+  }
+
+  setErrors(next);
+
+  if (Object.keys(next).length) return;
+
+  try {
+    await fetch(
+      'https://script.google.com/macros/s/AKfycbyvCJxyB0KhU3Trpwycg9DpwEnFGzqivEAaEk8upioeeKaUPxcFkVBaQwoPqK-9k3Lb/exec',
+      {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8',
+        },
+        body: JSON.stringify({
+          name: form.name,
+          attendance: form.attendance,
+          events: form.events.join(', '),
+          guests: form.guests,
+          message: form.message,
+        }),
+      }
+    );
+
+    setSubmitted(true);
+  } catch (error) {
+    console.error('RSVP submission failed:', error);
+    alert('Something went wrong. Please try again.');
+  }
+};
 
   return (
     <section className="rsvp-section" id="rsvp">
