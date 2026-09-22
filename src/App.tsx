@@ -197,8 +197,10 @@ function Hero() {
       />
       <div className="hero-light" style={{ transform: `translate(-50%, ${scrollProgress * 22}%)` }} />
       <div className="hero-copy" style={{ transform: `translateY(${scrollProgress * 80}px)`, opacity: 1 - scrollProgress * 1.7 }}>
-        <Reveal className="hero-label">Together with their families</Reveal>
-        <h1 className="hero-title">
+<Reveal className="hero-label">
+  Together with their families
+</Reveal>   
+    <h1 className="hero-title">
           <span>Akhil</span>
           <em>and</em>
           <span>Sabitha</span>
@@ -339,7 +341,7 @@ function EventCard({
   return (
     <Reveal delay={featured ? 0.1 : 0.16} className={`event-card ${featured ? 'event-card-featured' : ''}`}>
       <div className="event-card-top">
-        <span className="eyebrow">
+        <span className={`event-eyebrow ${event === wedding.reception ? 'reception-eyebrow' : ''}`}>
   {event === wedding.reception ? 'Wedding Reception' : 'Save the date'}
 </span>
         <strong>{event.date}</strong>
@@ -587,15 +589,32 @@ function OpeningOverlay({ onOpen }: { onOpen: () => void }) {
 
 function App() {
   const [open, setOpen] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
   useEffect(() => {
     document.body.style.overflow = open ? '' : 'hidden';
-    return () => { document.body.style.overflow = ''; };
+
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, [open]);
 
   return (
     <>
-      {!open && <OpeningOverlay onOpen={() => setOpen(true)} />}
-      {open && <div className="reading-progress" />}
+    <audio
+  ref={audioRef}
+  src="/music/wedding-song.mp3"
+  loop
+  preload="auto"
+/>
+
+{!open && (
+  <OpeningOverlay
+    onOpen={() => {
+      setOpen(true);
+      audioRef.current?.play();
+    }}
+  />
+)}      {open && <div className="reading-progress" />}
       <main className={`page-content ${open ? 'is-open' : ''}`}>
         <Hero />
         <CoupleSection />

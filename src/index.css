@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400&display=swap');
 @font-face {
   font-family: 'Cormorant Garamond';
   font-style: normal;
@@ -181,7 +182,7 @@ h1, h2, h3 { font-family: 'Cormorant Garamond', ui-serif, Georgia, serif; font-w
 .hero-garland { position: absolute; top: -2px; left: 50%; z-index: 3; width: 135%; max-width: none; opacity: .9; transition: transform .1s linear; }
 .hero-copy { position: relative; z-index: 5; display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 28rem; padding: 8rem 1.5rem 0; text-align: center; transition: transform .1s linear, opacity .1s linear; }
 .hero-label { color: oklch(88% .07 88 / .9); font-size: .6rem; letter-spacing: .5em; text-transform: uppercase; }
-.hero-title { display: flex; flex-direction: column; align-items: center; margin-top: 1.25rem;color: var(--gold); font-size: 4.25rem; line-height: .82; font-weight: 600; }
+.hero-title { display: flex; flex-direction: column; align-items: center; margin-top: 1.25rem;color: var(--gold); font-size: 4.25rem; line-height: .82; font-weight: 600; font-family: 'Bodoni Moda', serif; }
 .hero-title em { margin: .35rem 0; color: oklch(78% .115 85 / .8); font-family: 'Great Vibes', cursive; font-size: 1.9rem; font-style: normal; line-height: .6; }
 .hero-rule { width: 10rem; margin-top: 1.75rem; }
 .hero-date { margin-top: 1.25rem; color: #D4AF37;; font-size: .875rem; letter-spacing: .35em; text-transform: uppercase; }
@@ -305,4 +306,34 @@ h1, h2, h3 { font-family: 'Cormorant Garamond', ui-serif, Georgia, serif; font-w
   .hero-title { font-size: 3.75rem; }
   .choice-grid { grid-template-columns: 1fr; }
   .countdown-number { font-size: 1.85rem; }
+}
+/* Wedding Reception */
+.reception-eyebrow {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: .25em;
+}
+
+.music-button {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 9999;
+
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+
+  background: rgba(255, 255, 255, 0.9);
+  color: #8b6f2f;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  font-size: 18px;
+
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.18);
 }
